@@ -1,7 +1,7 @@
 #pragma once
 #define __USE_BSD
 #include <netinet/ip.h>
-#define __FAVAOR_BSD
+#define __FAVOR_BSD
 #include <netinet/tcp.h>
 #include <net/ethernet.h>
 
@@ -17,10 +17,25 @@ namespace TransportLayer
 		{
 			return hdr.th_off * 4;
 		}
-
+		
 		uint32_t seqNo() const
 		{
 			return bswap_32(hdr.th_seq);
+		}
+
+		uint32_t ackNo() const
+		{
+			return bswap_32(hdr.th_ack);
+		}
+
+		uint16_t srcPort() const
+		{
+			return bswap_16(hdr.th_sport);
+		}
+
+		uint16_t dstPort() const
+		{
+			return bswap_16(hdr.th_dport);
 		}
 
 		uint8_t flags() const
@@ -70,6 +85,16 @@ namespace NetworkLayer
 		uint8_t type() const
 		{
 			return hdr.protocol;
+		}
+
+		uint32_t srcIp() const
+		{
+			return bswap_32(hdr.saddr);
+		}
+
+		uint32_t dstIp() const
+		{
+			return bswap_32(hdr.daddr);
 		}
 
 		uint32_t offsetToBody() const

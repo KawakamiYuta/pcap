@@ -1,2 +1,2 @@
 all:
-	g++ -lpcap -lpthread main.cpp
+	g++ -O0 -g3 -lpcap -lpthread main.cpp
